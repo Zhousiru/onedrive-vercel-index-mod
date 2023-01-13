@@ -80,7 +80,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.writeHead(200, headers)
         stream.pipe(res)
       } else {
-        res.redirect(data['@microsoft.graph.downloadUrl'])
+        const rawUrl = data['@microsoft.graph.downloadUrl']
+        const proxyUrl = new URL(rawUrl)
+        proxyUrl.hostname = process.env.PROXY_HOSTNAME as string
+        res.redirect(proxyUrl.href)
       }
     } else {
       res.status(404).json({ error: 'No download url found.' })
