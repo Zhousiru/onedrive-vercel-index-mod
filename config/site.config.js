@@ -1,3 +1,5 @@
+const { faBarsProgress } = require('@fortawesome/free-solid-svg-icons')
+
 /**
  * This file contains the configuration used for customising the website, such as the folder to share,
  * the title, used Google fonts, site icons, contact info, etc.
@@ -17,7 +19,7 @@ module.exports = {
   kvPrefix: process.env.KV_PREFIX || '',
 
   // The name of your website. Present alongside your icon.
-  title: "Douga Drive",
+  title: 'Douga Drive',
 
   // The folder that you are to share publicly with onedrive-vercel-index. Use '/' if you want to share your root folder.
   baseDirectory: '/public/',
@@ -50,7 +52,13 @@ module.exports = {
   // [OPTIONAL] This is an array of names and links for setting your social information and links.
   // In the latest update, all brand icons inside font awesome is supported and the icon to render is based on the name
   // you provide. See the documentation for details.
-  links: [],
+  links: [
+    {
+      name: 'Monitor',
+      link: 'https://monitor.douga.mofu.app',
+      icon: faBarsProgress,
+    },
+  ],
 
   // This is a day.js-style datetime format string to format datetimes in the app. Ref to
   // https://day.js.org/docs/en/display/format for detailed specification. The default value is ISO 8601 full datetime

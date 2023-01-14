@@ -313,10 +313,10 @@ const FileListing: FC<{ query?: ParsedUrlQuery }> = ({ query }) => {
     }
 
     // Hide `.password` file
-    folderChildren.splice(
-      folderChildren.findIndex(f => f.name === '.password'),
-      1
-    )
+    const passwordIndex = folderChildren.findIndex(f => f.name === '.password')
+    if (passwordIndex !== -1) {
+      folderChildren.splice(passwordIndex, 1)
+    }
 
     // Folder layout component props
     const folderProps = {
