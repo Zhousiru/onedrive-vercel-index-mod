@@ -312,6 +312,12 @@ const FileListing: FC<{ query?: ParsedUrlQuery }> = ({ query }) => {
         })
     }
 
+    // Hide `.password` file
+    folderChildren.splice(
+      folderChildren.findIndex(f => f.name === '.password'),
+      1
+    )
+
     // Folder layout component props
     const folderProps = {
       toast,
