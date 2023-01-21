@@ -3,6 +3,7 @@ import { posix as pathPosix } from 'path'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 import Cors from 'cors'
+import requestIp from 'request-ip'
 
 import { driveApi, cacheControlHeader } from '../../config/api.config'
 import { encodePath, getAccessToken, checkAuthRoute } from '.'
@@ -80,10 +81,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.writeHead(200, headers)
         stream.pipe(res)
       } else {
-        const rawUrl = data['@microsoft.graph.downloadUrl']
-        const proxyUrl = new URL(rawUrl)
-        proxyUrl.hostname = process.env.PROXY_HOSTNAME as string
-        res.redirect(proxyUrl.href)
+        // Get IP Geo
+        try {
+          console.log(requestIp.getClientIp(req))
+          const { data: geo } = await axios.get(`https://api.ip.sb/geoip/${requestIp.getClientIp(req)}`)
+          if (geo.country === 'China') {
+            // Use proxy URL
+            const rawUrl = data['@microsoft.graph.downloadUrl']
+            const proxyUrl = new URL(rawUrl)
+            proxyUrl.hostname = process.env.PROXY_HOSTNAME as string
+            res.redirect(proxyUrl.href)
+          } else {
+            // Use raw URL
+            res.redirect(data['@microsoft.graph.downloadUrl'])
+          }
+        } catch (error) {
+          // Failed to get IP Geo, use raw URL
+          res.redirect(data['@microsoft.graph.downloadUrl'])
+        }
       }
     } else {
       res.status(404).json({ error: 'No download url found.' })
