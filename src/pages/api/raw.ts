@@ -5,7 +5,7 @@ import axios, { AxiosResponseHeaders } from 'axios'
 import Cors from 'cors'
 import requestIp from 'request-ip'
 
-import { driveApi, cacheControlHeader } from '../../config/api.config'
+import { driveApi, cacheControlHeader } from '../../../config/api.config'
 import { encodePath, getAccessToken, checkAuthRoute } from '.'
 
 // CORS middleware for raw links: https://nextjs.org/docs/api-routes/api-middlewares
