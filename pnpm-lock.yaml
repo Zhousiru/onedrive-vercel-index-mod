@@ -76,7 +76,7 @@ dependencies:
     version: 'link:'
   plyr-react:
     specifier: ^5.1.2
-    version: 5.1.2(react@18.2.0)
+    version: 5.1.2(plyr@3.7.3)(react@18.2.0)
   preview-office-docs:
     specifier: ^1.0.2
     version: 1.0.2(react@18.2.0)
@@ -169,6 +169,9 @@ devDependencies:
   '@types/react-syntax-highlighter':
     specifier: ^15.5.6
     version: 15.5.6
+  '@types/request-ip':
+    specifier: ^0.0.41
+    version: 0.0.41
   autoprefixer:
     specifier: ^10.4.13
     version: 10.4.13(postcss@8.4.21)
@@ -824,6 +827,12 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
+
+  /@types/request-ip@0.0.41:
+    resolution: {integrity: sha512-Qzz0PM2nSZej4lsLzzNfADIORZhhxO7PED0fXpg4FjXiHuJ/lMyUg+YFF5q8x9HPZH3Gl6N+NOM8QZjItNgGKg==}
+    dependencies:
+      '@types/node': 18.16.18
+    dev: true
 
   /@types/scheduler@0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
@@ -4041,10 +4050,11 @@ packages:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
 
-  /plyr-react@5.1.2(react@18.2.0):
+  /plyr-react@5.1.2(plyr@3.7.3)(react@18.2.0):
     resolution: {integrity: sha512-RHRlK5wKIRIpX0xHmnHcGJGH2hFAU7njHrIE2bv/8J2l9BjmCM7KOaRKMQYPxkpCNXGtdVgAt3qYitegRN7g9g==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
+      plyr: ^3.7.3
       react: '>=16.8'
     peerDependenciesMeta:
       react:

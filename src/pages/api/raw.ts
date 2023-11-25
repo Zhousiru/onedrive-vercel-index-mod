@@ -1,12 +1,12 @@
 import { posix as pathPosix } from 'path'
 
-import type { NextApiRequest, NextApiResponse } from 'next'
 import axios, { AxiosResponseHeaders } from 'axios'
 import Cors from 'cors'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import requestIp from 'request-ip'
 
-import { driveApi, cacheControlHeader } from '../../../config/api.config'
-import { encodePath, getAccessToken, checkAuthRoute } from '.'
+import { checkAuthRoute, encodePath, getAccessToken } from '.'
+import { cacheControlHeader, driveApi } from '../../../config/api.config'
 
 // CORS middleware for raw links: https://nextjs.org/docs/api-routes/api-middlewares
 export function runCorsMiddleware(req: NextApiRequest, res: NextApiResponse) {
@@ -83,8 +83,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } else {
         // Get IP Geo
         try {
-          console.log(requestIp.getClientIp(req))
-          const { data: geo } = await axios.get(`https://api.ip.sb/geoip/${requestIp.getClientIp(req)}`)
+          const clientIp = req.headers['cf-connecting-ip'] ?? requestIp.getClientIp(req)
+          const { data: geo } = await axios.get(`https://api.ip.sb/geoip/${clientIp}`)
           if (geo.country === 'China') {
             // Use proxy URL
             const rawUrl = data['@microsoft.graph.downloadUrl']
